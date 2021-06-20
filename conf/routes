@@ -21,10 +21,7 @@ GET     /products/                             controllers.HomeController.produc
 GET     /login1                     controllers.TaskList1.login1
 # http://localhost:9000/validateLogin1?username=abel&password=abc123
 GET     /validateLogin1Get          controllers.TaskList1.validateLogin1Get(username, password)
-# Need to disable CSRF (Cross Site Request Forgery) else get Unauthorized Page
-+ nocsrf
 POST    /validateLogin1Post         controllers.TaskList1.validateLogin1Post
-+ nocsrf
 POST    /createUser1                controllers.TaskList1.createUser1
 # http://localhost:9000/taskList1
 GET     /taskList1                  controllers.TaskList1.taskList

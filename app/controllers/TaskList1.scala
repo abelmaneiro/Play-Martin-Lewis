@@ -8,8 +8,11 @@ import javax.inject.{Inject, Singleton}
 @Singleton  // Juice injection which Play used by default for dependency injection
 class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(cc) { // need to inject the
                                                             // Controller Components and extend the Controller class
-  def login1: Action[AnyContent] = Action {
-    Ok(views.html.login1())
+  // def login1: Action[AnyContent] = Action {request =>
+  //  Ok(views.html.login1()(request))
+  // }
+  def login1: Action[AnyContent] = Action { implicit request =>
+    Ok(views.html.login1())  // By making request implicit, no need to pass it in
   }
 
   def validateLogin1Get(username: String, password: String): Action[AnyContent] = Action {
