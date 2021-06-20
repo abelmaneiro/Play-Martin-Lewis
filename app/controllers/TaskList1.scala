@@ -13,6 +13,16 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
   def validateLogin1Get(username: String, password: String): Action[AnyContent] = Action {
     Ok(s"$username login with $password")
   }
+  def validateLogin1Post: Action[AnyContent] = Action { request =>
+    val body = request.body.asFormUrlEncoded  //  is type of Option[Map[String, Seq[String]]]
+    val credentials = body.map {args =>   // is type of Option[Result]
+      val username = args("username").head
+      val password = args("password").head
+      Ok(s"$username login with $password")
+    }
+    val result = credentials.getOrElse(Ok("Oops"))  // is type of  Result
+    result
+  }
 
   def taskList: Action[AnyContent] = Action {
     Ok(views.html.taskList1(Seq("Task1", "Task2", "Task3")))   // Because it's a html view it's in the html folder
