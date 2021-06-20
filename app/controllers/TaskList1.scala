@@ -1,5 +1,6 @@
 package controllers
 
+import Models.TaskListInMemoryModel
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 
 import javax.inject.{Inject, Singleton}
@@ -18,7 +19,10 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     val credentials = body.map {args =>   // is type of Option[Result]
       val username = args("username").head
       val password = args("password").head
-      Redirect(routes.TaskList1.taskList)  // redirect to taskList page using reverse routing
+      if (TaskListInMemoryModel.validateUser(username, password))
+        Redirect(routes.TaskList1.taskList)  // redirect to taskList page using reverse routing
+      else
+        Redirect(routes.TaskList1.login1)
     }
     val result = credentials.getOrElse(Redirect(routes.TaskList1.login1))  // is type of  Result
     result
