@@ -20,4 +20,11 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
   }
+
+  def product(prodType: String, prodNum: Int): Action[AnyContent] = Action {
+    Ok(s"$prodNum - $prodType")
+  }
+  def products(prodTypes: Seq[String]): Action[AnyContent] = Action {
+    Ok(prodTypes.mkString(", "))
+  }
 }

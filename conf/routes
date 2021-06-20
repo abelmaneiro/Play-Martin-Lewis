@@ -5,6 +5,19 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index()
+
+# http://localhost:9000/productArgs?prodType=abc&prodNum=123   # default type is
+GET     /productArgs                                    controllers.HomeController.product(prodType, prodNum: Int)
+# http://localhost:9000/product/def/456
+GET     /product/:prodType/:prodNum                     controllers.HomeController.product(prodType: String, prodNum: Int)
+# http://localhost:9000/productRegEx/ab12/456
+GET     /productRegEx/$prodType<[a-z]{2}\d\d>/:prodNum  controllers.HomeController.product(prodType: String, prodNum: Int)
+# http://localhost:9000/productMix/hijk?prodNum=789
+GET     /productMix/:prodType                           controllers.HomeController.product(prodType: String, prodNum: Int)
+# http://localhost:9000/products/?prodList=abc&prodList=def&prodList=ghi
+GET     /products/                             controllers.HomeController.products(prodList: List[String])
+
+# http://localhost:9000/taskList1
 GET     /taskList1                  controllers.TaskList1.taskList
 
 # Map static resources from the /public folder to the /assets URL path
