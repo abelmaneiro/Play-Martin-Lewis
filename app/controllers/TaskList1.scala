@@ -22,7 +22,7 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       val username = args("username").head
       val password = args("password").head
       if (TaskListInMemoryModel.validateUser(username, password))
-        Redirect(routes.TaskList1.taskList)  // redirect to taskList page using reverse routing
+        Redirect(routes.TaskList1.taskList).withSession("username" -> username) // redirect to taskList page using reverse routing
       else
         Redirect(routes.TaskList1.login1)
     }
@@ -36,16 +36,22 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       val username = args("username").head
       val password = args("password").head
       if (TaskListInMemoryModel.createUser(username, password))
-        Redirect(routes.TaskList1.taskList)  // redirect to taskList page using reverse routing
+        Redirect(routes.TaskList1.taskList).withSession("username" -> username)  // save username as session cookie
       else
       Redirect(routes.TaskList1.login1)
     }.getOrElse(Redirect(routes.TaskList1.login1))
   }
 
-  def taskList: Action[AnyContent] = Action {
-    val username = "Mark"
-    val tasks = TaskListInMemoryModel.getTasks(username)
-    Ok(views.html.taskList1(tasks))   // Because it's a html view it's in the html folder
+  def taskList: Action[AnyContent] = Action { request =>
+    val usernameOption = request.session.get("username")
+    usernameOption.map { username =>
+      val tasks = TaskListInMemoryModel.getTasks(username)
+      Ok(views.html.taskList1(tasks))
+    }.getOrElse(Redirect(routes.TaskList1.login1))
+  }
+
+  def logout = Action { request =>
+    Redirect(routes.TaskList1.login1).withNewSession  // clear session cookie
   }
 
 }
