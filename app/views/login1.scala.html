@@ -12,7 +12,8 @@
         @* clicking submit goes to http://localhost:9000/validateLogin1?username=abel&password=abc123 *@
     </form>
     <br>
-    <form method="post" action="validateLogin1Post">
+    @* Reverse routing to find the URL *@
+    <form method="post" action="@routes.TaskList1.validateLogin1Post">
         <label> Username:
             <input type="text" name="username">
         </label>

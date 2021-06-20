@@ -18,9 +18,9 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     val credentials = body.map {args =>   // is type of Option[Result]
       val username = args("username").head
       val password = args("password").head
-      Ok(s"$username login with $password")
+      Redirect(routes.TaskList1.taskList)  // redirect to taskList page using reverse routing
     }
-    val result = credentials.getOrElse(Ok("Oops"))  // is type of  Result
+    val result = credentials.getOrElse(Redirect(routes.TaskList1.login1))  // is type of  Result
     result
   }
 
