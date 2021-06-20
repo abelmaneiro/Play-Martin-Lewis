@@ -1,0 +1,14 @@
+@()
+@main("Login"){
+    <h2>Login</h2>
+    <form method="get" action="validateLogin1">
+        <label> Username:
+            <input type="text" name="username">
+        </label>
+        <label> Password:
+            <input type="password" name="password">
+        </label>
+        <input type="submit"/>
+        @* clicking submit goes to http://localhost:9000/validateLogin1?username=abel&password=abc123 *@
+    </form>
+}

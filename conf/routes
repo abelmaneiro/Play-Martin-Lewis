@@ -17,6 +17,10 @@ GET     /productMix/:prodType                           controllers.HomeControll
 # http://localhost:9000/products/?prodList=abc&prodList=def&prodList=ghi
 GET     /products/                             controllers.HomeController.products(prodList: List[String])
 
+# http://localhost:9000/login1
+GET     /login1                     controllers.TaskList1.login1
+# http://localhost:9000/validateLogin1?username=abel&password=abc123
+GET     /validateLogin1             controllers.TaskList1.validateLogin1Get(username, password)
 # http://localhost:9000/taskList1
 GET     /taskList1                  controllers.TaskList1.taskList
 
