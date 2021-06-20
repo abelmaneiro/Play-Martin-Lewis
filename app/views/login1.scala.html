@@ -2,6 +2,7 @@
 @main("Login"){
     <h2>Login</h2>
     <form method="get" action="validateLogin1Get">
+        <h3>Longin with GET (no secure)</h3>
         <label> Username:
             <input type="text" name="username">
         </label>
@@ -14,7 +15,20 @@
     <br>
     @* Reverse routing to find the URL *@
     <form method="post" action="@routes.TaskList1.validateLogin1Post">
+        <h3>Longin with POST</h3>
         <label> Username:
+            <input type="text" name="username">
+        </label>
+        <label> Password:
+            <input type="password" name="password">
+        </label>
+        <input type="submit"/>
+    </form>
+    <br>
+    @* Reverse routing to find the URL *@
+    <form method="post" action="@routes.TaskList1.createUser1">
+        <h3>Create User</h3>
+        <label> New Username:
             <input type="text" name="username">
         </label>
         <label> Password:
