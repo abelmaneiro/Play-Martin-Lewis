@@ -1,5 +1,5 @@
 @* implicit RequestHeader passed in by compiler so no need to pass it in *@
-@()(implicit request: RequestHeader)
+@()(implicit request: RequestHeader, flash: Flash)
 @main("Login"){
     <h2>Login</h2>
     <form method="get" action="validateLogin1Get">

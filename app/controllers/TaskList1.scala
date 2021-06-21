@@ -27,9 +27,9 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       if (TaskListInMemoryModel.validateUser(username, password))
         Redirect(routes.TaskList1.taskList).withSession("username" -> username) // redirect to taskList page using reverse routing
       else
-        Redirect(routes.TaskList1.login1)
+        Redirect(routes.TaskList1.login1).flashing("error" -> "Invalid username/password")  // only lives until next request
     }
-    val result = credentials.getOrElse(Redirect(routes.TaskList1.login1))  // is type of  Result
+    val result = credentials.getOrElse(Redirect(routes.TaskList1.login1).flashing("error" -> "Major Invalid username/password"))  // is type of  Result
     result
   }
 
@@ -41,11 +41,11 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       if (TaskListInMemoryModel.createUser(username, password))
         Redirect(routes.TaskList1.taskList).withSession("username" -> username)  // save username as session cookie
       else
-      Redirect(routes.TaskList1.login1)
-    }.getOrElse(Redirect(routes.TaskList1.login1))
+        Redirect(routes.TaskList1.login1).flashing("error" -> "User creation failed")
+    }.getOrElse(Redirect(routes.TaskList1.login1).flashing("error" -> "User creation major failed"))
   }
 
-  def taskList: Action[AnyContent] = Action { request =>
+  def taskList: Action[AnyContent] = Action { implicit request =>
     val usernameOption = request.session.get("username")
     usernameOption.map { username =>
       val tasks = TaskListInMemoryModel.getTasks(username)
@@ -53,7 +53,7 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     }.getOrElse(Redirect(routes.TaskList1.login1))
   }
 
-  def logout = Action { request =>
+  def logout: Action[AnyContent] = Action {
     Redirect(routes.TaskList1.login1).withNewSession  // clear session cookie
   }
 

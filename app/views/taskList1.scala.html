@@ -1,5 +1,5 @@
 @* Anything starting with @ is code and not  HTML. The Twirl template gets compiled to Scala code  *@
-@(tasks: Seq[String])
+@(tasks: Seq[String])(implicit flash: Flash)
 
 @main("Task List") {
     <h2>Task List</h2>
