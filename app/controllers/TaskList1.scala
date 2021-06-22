@@ -56,5 +56,4 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
   def logout: Action[AnyContent] = Action {
     Redirect(routes.TaskList1.login1).withNewSession  // clear session cookie
   }
-
 }
