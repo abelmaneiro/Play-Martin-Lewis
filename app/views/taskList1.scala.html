@@ -4,11 +4,16 @@
 @main("Task List") {
     <h2>Task List</h2>
     <ul>
-        @for(task <- tasks) {   @* for loop  *@
+        @for((task, idx) <- tasks.zipWithIndex) {   @* for loop  *@
             <li>@task</li>
+            <form method="post" action="@routes.TaskList1.deleteTask()">
+                @helper.CSRF.formField
+                <input type="hidden"  name="index" value="@idx">
+                <input type="submit" value="Delete!">
+            </form>
         }
     </ul>
-    <form method="post" action="@routes.TaskList1.addTask">
+    <form method="post" action="@routes.TaskList1.addTask()">
         @helper.CSRF.formField
         <label> Enter new task
             <input type="text" name="newTask">

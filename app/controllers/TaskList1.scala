@@ -68,4 +68,16 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       }.getOrElse(Redirect(routes.TaskList1.taskList).flashing("error" -> "From addTask - No body"))
     }.getOrElse(Redirect(routes.TaskList1.login1).flashing("error" -> "From addTask - Please login first"))
   }
+
+   def deleteTask(): Action[AnyContent] = Action { request =>
+    val usernameOption = request.session.get("username")
+    usernameOption.map { username =>
+      val body = request.body.asFormUrlEncoded
+      body.map { args =>
+        val idx = args("index").head.toInt
+        TaskListInMemoryModel.removeTask(username, idx)
+        Redirect(routes.TaskList1.taskList)
+      }.getOrElse(Redirect(routes.TaskList1.taskList).flashing("error" -> "From removeTask - No body"))
+    }.getOrElse(Redirect(routes.TaskList1.login1).flashing("error" -> "From removeTask - Please login first"))
+  }
 }
