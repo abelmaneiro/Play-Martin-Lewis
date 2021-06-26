@@ -1,4 +1,4 @@
-package Models
+package models
 
 import scala.collection.mutable
 
@@ -21,7 +21,7 @@ object TaskListInMemoryModel {
     else {
       // users += (username -> password)
       users(username) = password
-      tasks(username) = Nil
+      // tasks(username) = Nil  // doing thin is adTask instead
       true
     }
   }
@@ -31,7 +31,11 @@ object TaskListInMemoryModel {
     tasks.getOrElse(username, Nil)
   }
 
-  def addTask(username: String, task: String): Unit = ???
+  def addTask(username: String, task: String): Unit = {
+    // tasks(username) = task :: tasks.get(username).getOrElse(Nil)
+    tasks(username) = task :: tasks.getOrElse(username, Nil)
+
+  }
 
   def removeTask(username: String, index: Int): Boolean = ???
 

@@ -22,10 +22,11 @@ GET     /login1                     controllers.TaskList1.login1
 # http://localhost:9000/validateLogin1?username=abel&password=abc123
 GET     /validateLogin1Get          controllers.TaskList1.validateLogin1Get(username, password)
 POST    /validateLogin1Post         controllers.TaskList1.validateLogin1Post
-POST    /createUser1                controllers.TaskList1.createUser1
+POST    /createUser1                controllers.TaskList1.createUser1()
 # http://localhost:9000/taskList1
 GET     /taskList1                  controllers.TaskList1.taskList
 GET     /logout1                    controllers.TaskList1.logout
+POST    /addTask1                   controllers.TaskList1.addTask()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

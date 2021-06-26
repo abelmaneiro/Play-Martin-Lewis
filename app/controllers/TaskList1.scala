@@ -1,6 +1,6 @@
 package controllers
 
-import Models.TaskListInMemoryModel
+import models.TaskListInMemoryModel
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 
 import javax.inject.{Inject, Singleton}
@@ -33,7 +33,7 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     result
   }
 
-  def createUser1: Action[AnyContent] = Action { request =>
+  def createUser1(): Action[AnyContent] = Action { request =>
     val body = request.body.asFormUrlEncoded  //  is type of Option[Map[String, Seq[String]]]
     body.map { args =>   // is type of Option[Result]
       val username = args("username").head
@@ -55,5 +55,17 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
 
   def logout: Action[AnyContent] = Action {
     Redirect(routes.TaskList1.login1).withNewSession  // clear session cookie
+  }
+
+  def addTask(): Action[AnyContent] = Action { request =>
+    val usernameOption = request.session.get("username")
+    usernameOption.map {username =>
+      val body = request.body.asFormUrlEncoded
+      body.map { args =>
+        val task = args("newTask").head
+        TaskListInMemoryModel.addTask(username, task)
+        Redirect(routes.TaskList1.taskList)
+      }.getOrElse(Redirect(routes.TaskList1.taskList).flashing("error" -> "From addTask - No body"))
+    }.getOrElse(Redirect(routes.TaskList1.login1).flashing("error" -> "From addTask - Please login first"))
   }
 }
