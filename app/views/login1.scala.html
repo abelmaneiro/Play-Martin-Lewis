@@ -1,7 +1,9 @@
-@* implicit RequestHeader passed in by compiler so no need to pass it in *@
-@()(implicit request: RequestHeader, flash: Flash)
+@* implicit RequestHeader & Flash passed in by compiler so no need to pass it in *@
+@* loginFrom is a Form of our Case Class Type & changed RequestHeader to MessagesRequestHeader for international messages  *@
+@(loginForm: Form[LoginData])(implicit request: MessagesRequestHeader, flash: Flash)
 @main("Login"){
     <h2>Login</h2>
+
     <form method="get" action="validateLogin1Get">
         <h3>Longin with GET (no secure)</h3>
         <label> Username:
@@ -13,7 +15,7 @@
         <input type="submit"/>
         @* clicking submit goes to http://localhost:9000/validateLogin1?username=abel&password=abc123 *@
     </form>
-    <br>
+
     @* Reverse routing to find the URL *@
     <form method="post" action="@routes.TaskList1.validateLogin1Post">
         @* As RequestHeader is passed implicitly no need to pass it in *@
@@ -28,9 +30,9 @@
         </label>
         <input type="submit"/>
     </form>
-    <br>
+
     @* Reverse routing to find the URL *@
-    <form method="post" action="@routes.TaskList1.createUser1">
+    <form method="post" action="@routes.TaskList1.createUser1()">
         @helper.CSRF.formField
         <h3>Create User</h3>
         <label> New Username:
@@ -41,4 +43,14 @@
         </label>
         <input type="submit"/>
     </form>
+
+    @helper.form.apply(action = routes.TaskList1.createUserForm()) {
+        @helper.CSRF.formField
+        <h3>Create user using Play form</h3>
+        @helper.inputText.apply(loginForm("Username"))
+        @helper.inputText(loginForm("Password"))
+        <div class="form-action">
+            <button type="submit">Login</button>
+        </div>
+    }
 }

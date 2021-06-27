@@ -1,18 +1,28 @@
 package controllers
 
 import models.TaskListInMemoryModel
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
+import play.api.data.Forms.text
+import play.api.data.{Form, Forms}
+import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
 import javax.inject.{Inject, Singleton}
 
+case class LoginData(username: String, password: String)
+
 @Singleton  // Juice injection which Play used by default for dependency injection
-class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(cc) { // need to inject the
-                                                            // Controller Components and extend the Controller class
+class TaskList1 @Inject()(cc: MessagesControllerComponents) extends MessagesAbstractController(cc) { // need to inject the
+  // Controller Components and extend the Controller class. In addition need to use the Message version for Play forms
+
+  val loginForm: Form[LoginData] = Form.apply(Forms.mapping(   // mapping from field -> data type
+    "Username"-> Forms.text(3, 10),    // Min & max text field
+    "Password" -> text(8)
+  ) (LoginData.apply)(LoginData.unapply))  // methods to construct and deconstruct the data
+
   // def login1: Action[AnyContent] = Action {request =>
   //  Ok(views.html.login1()(request))
   // }
   def login1: Action[AnyContent] = Action { implicit request =>
-    Ok(views.html.login1())  // By making request implicit, no need to pass it in
+    Ok(views.html.login1(loginForm))  // By making request implicit, no need to pass it in, but need to pass in loginForm
   }
 
   def validateLogin1Get(username: String, password: String): Action[AnyContent] = Action {
@@ -43,6 +53,17 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       else
         Redirect(routes.TaskList1.login1).flashing("error" -> "User creation failed")
     }.getOrElse(Redirect(routes.TaskList1.login1).flashing("error" -> "User creation major failed"))
+  }
+
+  def createUserForm(): Action[AnyContent] = Action { implicit request =>
+    loginForm.bindFromRequest().fold( // bind the loginForm to the implicit request. .fold either calls the error or success code
+      formWithError => BadRequest(views.html.login1(formWithError)), // error code
+      loginData => // success code
+        if (TaskListInMemoryModel.createUser(loginData.username, loginData.password))
+          Redirect(routes.TaskList1.taskList).withSession("username" -> loginData.username)
+        else
+          Redirect(routes.TaskList1.login1).flashing("error" -> "Invalid username/password")
+    )
   }
 
   def taskList: Action[AnyContent] = Action { implicit request =>
