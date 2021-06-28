@@ -23,10 +23,10 @@
         @helper.CSRF.formField
         <h3>Login with POST</h3>
         <label> Username:
-            <input type="text" name="username">
+            <input type="text" name="username" id="username-login">
         </label>
         <label> Password:
-            <input type="password" name="password">
+            <input type="password" name="password" id="password-login">
         </label>
         <input type="submit"/>
     </form>
@@ -36,10 +36,10 @@
         @helper.CSRF.formField
         <h3>Create User</h3>
         <label> New Username:
-            <input type="text" name="username">
+            <input type="text" name="username" id="username-create">
         </label>
         <label> Password:
-            <input type="password" name="password">
+            <input type="password" name="password" id="password-create">
         </label>
         <input type="submit"/>
     </form>

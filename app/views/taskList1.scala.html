@@ -9,7 +9,7 @@
             <form method="post" action="@routes.TaskList1.deleteTask()">
                 @helper.CSRF.formField
                 <input type="hidden"  name="index" value="@idx">
-                <input type="submit" value="Delete!">
+                <input type="submit" value="Delete!" id="delete-@idx">
             </form>
         }
     </ul>
@@ -23,7 +23,7 @@
     </form>
 
     <div>
-        <a href="@routes.TaskList1.logout">Logout</a>
+        <a href="@routes.TaskList1.logout" id="logout">Logout</a>
     </div>
 
 }
