@@ -33,6 +33,9 @@ GET     /logout1                    controllers.TaskList1.logout
 POST    /addTask1                   controllers.TaskList1.addTask()
 POST    /detlteTask1                controllers.TaskList1.deleteTask()
 
+GET     /load2                      controllers.TaskList2.load
+GET     /login2                     controllers.TaskList2.login
+
 
 GET     /applicationIndex           controllers.Application.index
 

@@ -1,0 +1,8 @@
+@* Need implicit flash only because main.scala.html need it *@
+@()(implicit flash: Flash)
+
+@main("Task List (version 2)") {
+    <div id="contents"></div>
+
+    <script src="@routes.Assets.versioned("javascripts/version2.js")"></script>
+}
