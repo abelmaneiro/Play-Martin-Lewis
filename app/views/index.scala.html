@@ -1,7 +1,11 @@
 @(message: String)(implicit flash: Flash)
 
 @main("Welcome to Play") {
-  <h1>@message</h1>
-  <p>This is a simple example of a web form</p>
-  <p>Nothing special at all</p>
+    <h1>@message</h1>
+    <p>This is a simple example of a web form</p>
+    <p>Nothing special at all</p>
+
+    <p id="randomText">Click for a random number: <span id="random">4</span></p>
+
+    <script src="@routes.Assets.versioned("javascripts/basicStuff.js")"></script>
 }

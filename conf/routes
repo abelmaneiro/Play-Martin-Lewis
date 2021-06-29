@@ -16,6 +16,7 @@ GET     /productRegEx/$prodType<[a-z]{2}\d\d>/:prodNum  controllers.HomeControll
 GET     /productMix/:prodType                           controllers.HomeController.product(prodType: String, prodNum: Int)
 # http://localhost:9000/products/?prodList=abc&prodList=def&prodList=ghi
 GET     /products/                             controllers.HomeController.products(prodList: List[String])
+GET     /random                                controllers.Application.randomNumber
 
 # http://localhost:9000/login1
 GET     /login1                     controllers.TaskList1.login1
