@@ -1,8 +1,8 @@
-console.log("Running version2.js");
+@()
 
-const loginRoute = $("#loginRoute").val()
-//$("#contents").load("/login2");
-$("#contents").load(loginRoute);  // only really works for GETS without parameters
+console.log("Running generatedJS.scala.js");
+
+$("#contents").load("@routes.TaskList2.login");
 
 function login() {
     const username = $("#loginName").val();

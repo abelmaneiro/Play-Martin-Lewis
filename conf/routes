@@ -31,11 +31,16 @@ POST    /createuserForm1            controllers.TaskList1.createUserForm()
 GET     /taskList1                  controllers.TaskList1.taskList
 GET     /logout1                    controllers.TaskList1.logout
 POST    /addTask1                   controllers.TaskList1.addTask()
-POST    /detlteTask1                controllers.TaskList1.deleteTask()
+POST    /deleteTask1                controllers.TaskList1.deleteTask()
 
 GET     /load2                      controllers.TaskList2.load
 GET     /login2                     controllers.TaskList2.login
-
+GET     /validate2                  controllers.TaskList2.validate(username, password)
+GET     /create2                    controllers.TaskList2.createUser(username, password)
+GET     /deleteTask2                controllers.TaskList2.deleteTask(index: Int)
+GET     /addTask2                   controllers.TaskList2.addTask(task)
+GET     /logout2                    controllers.TaskList2.logout()
+GET     /generatedJS                controllers.TaskList2.generatedJS
 
 GET     /applicationIndex           controllers.Application.index
 
