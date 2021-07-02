@@ -1,5 +1,3 @@
-@()
-
 console.log("Running generatedJS.scala.js");
 
 $("#contents").load("@routes.TaskList2.login");
