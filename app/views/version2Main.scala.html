@@ -1,10 +1,12 @@
 @* Need implicit flash only because main.scala.html need it *@
-@()(implicit flash: Flash)
+@()(implicit request: RequestHeader, flash: Flash)
 
 @main("Task List (version 2)") {
     <div id="contents"></div>
 
+    <input type="hidden" id="csrfToken" value="@helper.CSRF.getToken.value">
     <input type="hidden" id="loginRoute" value="@routes.TaskList2.login">
+    <input type="hidden" id="validateRoute" value="@routes.TaskList2.validatePost">
 
     <script src="@routes.Assets.versioned("javascripts/version2.js")"></script>
     <!-- <script src="@routes.TaskList2.generatedJS"></script> -->

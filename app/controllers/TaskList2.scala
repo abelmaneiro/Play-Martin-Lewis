@@ -22,6 +22,18 @@ class TaskList2 @Inject() (cc: ControllerComponents) extends AbstractController(
       Ok(views.html.login2())
   }
 
+  def validatePost: Action[AnyContent] = Action { request =>
+    val body = request.body.asFormUrlEncoded
+    body.map { args =>
+      val username = args("username").head
+      val password = args("password").head
+      if (TaskListInMemoryModel.validateUser(username, password))
+        Ok(views.html.taskList2(TaskListInMemoryModel.getTasks(username))).withSession("username" -> username)
+      else
+        Ok(views.html.login2())
+    }.getOrElse(Ok(views.html.login2()))
+  }
+
   def createUser(username: String, password: String): Action[AnyContent] = Action {
     if (TaskListInMemoryModel.createUser(username, password))
       Ok(views.html.taskList2(TaskListInMemoryModel.getTasks(username))).withSession("username" -> username)
@@ -49,7 +61,7 @@ class TaskList2 @Inject() (cc: ControllerComponents) extends AbstractController(
     Redirect(routes.TaskList2.load).withNewSession  // This changes the browser URL back to /load
   }
 
-  def generatedJS = Action {
+  def generatedJS: Action[AnyContent] = Action {
     Ok(views.js.generatedJS())
   }
 }
