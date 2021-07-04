@@ -1,0 +1,37 @@
+@()(implicit request: RequestHeader, flash: Flash)
+
+@main("Task List (version 3)") {
+    <div id="contents">Version 3</div>
+
+    <div id="login-section">
+        <h2>Login:</h2>
+        <label>Username:<input type="text" id="loginName"></label>
+        <label for="loginPassword">Password:</label><input type="password" id="loginPassword">
+        <button onclick="login()">Login</button><span id="login-message"></span>
+        <h2>Create user:</h2>
+        <label>Username:<input type="text" id="createName"></label>
+        <label for="createPassword">Password:</label><input type="password" id="createPassword">
+        <button onclick="createUser()">Create</button>  <span id="create-message"></span>
+
+    </div>
+
+    <div id="task-section" hidden>
+        <h2>Task List</h2>
+        <ul id="task-list"></ul>
+        <label>New Task:<input type="text" id="newTask"></label>
+        <button onclick="addTask()">Add Task</button><span id="task-message"></span>
+        <div>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <input type="hidden" id="csrfToken" value="@helper.CSRF.getToken.value">
+    <input type="hidden" id="validateRoute" value="@routes.TaskList3.validate">
+    <input type="hidden" id="taskRoute" value="@routes.TaskList3.taskList">
+    <input type="hidden" id="createRoute" value="@routes.TaskList3.createUser()">
+    <input type="hidden" id="deleteRoute" value="@routes.TaskList3.deleteTask()">
+    <input type="hidden" id="addRoute" value="@routes.TaskList3.addTask()">
+    <input type="hidden" id="logoutRoute" value="@routes.TaskList3.logout">
+
+    <script src="@routes.Assets.versioned("javascripts/version3.js")"></script>
+}

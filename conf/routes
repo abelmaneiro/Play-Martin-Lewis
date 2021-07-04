@@ -20,6 +20,7 @@ GET     /products/                             controllers.HomeController.produc
 GET     /random                                controllers.Application.randomNumber
 GET     /randomString/:length                  controllers.Application.randomString(length: Int)
 
+# Version 1
 # http://localhost:9000/login1
 GET     /login1                     controllers.TaskList1.login1
 # http://localhost:9000/validateLogin1?username=abel&password=abc123
@@ -33,16 +34,27 @@ GET     /logout1                    controllers.TaskList1.logout
 POST    /addTask1                   controllers.TaskList1.addTask()
 POST    /deleteTask1                controllers.TaskList1.deleteTask()
 
+# version 2
 GET     /load2                      controllers.TaskList2.load
 GET     /login2                     controllers.TaskList2.login
 GET     /validate2                  controllers.TaskList2.validate(username, password)
 POST    /validate2Post              controllers.TaskList2.validatePost
-
 GET     /create2                    controllers.TaskList2.createUser(username, password)
 GET     /deleteTask2                controllers.TaskList2.deleteTask(index: Int)
 GET     /addTask2                   controllers.TaskList2.addTask(task)
 GET     /logout2                    controllers.TaskList2.logout()
 GET     /generatedJS                controllers.TaskList2.generatedJS
+
+# Version 3
+GET     /load3                      controllers.TaskList3.load
+POST    /validate3                  controllers.TaskList3.validate
+GET     /tasklist3                  controllers.TaskList3.taskList
+POST    /addTask3                   controllers.TaskList3.addTask()
+POST    /deleteTask3                controllers.TaskList3.deleteTask()
+POST    /create3                    controllers.TaskList3.createUser()
+GET     /logout3                    controllers.TaskList3.logout
+
+GET     /data                       controllers.TaskList3.data
 
 GET     /applicationIndex           controllers.Application.index
 
