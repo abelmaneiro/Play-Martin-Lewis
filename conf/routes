@@ -61,8 +61,11 @@ GET     /chat                       controllers.WebSocketChat.index
 GET     /chatSocket                 controllers.WebSocketChat.socket
 
 
+# React Intro 4
+GET     /react                      controllers.React.load
 # Version 4
 GET     /load4                      controllers.TaskList4.load
+
 
 GET     /applicationIndex           controllers.Application.index
 
