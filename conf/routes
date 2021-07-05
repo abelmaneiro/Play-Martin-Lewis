@@ -61,6 +61,9 @@ GET     /chat                       controllers.WebSocketChat.index
 GET     /chatSocket                 controllers.WebSocketChat.socket
 
 
+# Version 4
+GET     /load4                      controllers.TaskList4.load
+
 GET     /applicationIndex           controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path

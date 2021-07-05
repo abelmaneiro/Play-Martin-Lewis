@@ -17,6 +17,10 @@
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+        <!-- React Need to double @@ as "at" is a special Twirl symbol -->
+        <script src="https://unpkg.com/react@@17/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@@17/umd/react-dom.development.js"></script>
+
     </head>
     <body>
         @for(error <- flash.get("error")){<h1>@error</h1>}
