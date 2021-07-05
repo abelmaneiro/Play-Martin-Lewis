@@ -56,6 +56,11 @@ GET     /logout3                    controllers.TaskList3.logout
 
 GET     /data                       controllers.TaskList3.data
 
+# Web Chat
+GET     /chat                       controllers.WebSocketChat.index
+GET     /chatSocket                 controllers.WebSocketChat.socket
+
+
 GET     /applicationIndex           controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
